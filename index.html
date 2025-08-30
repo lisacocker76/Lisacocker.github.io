@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lisa Cocker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #ffffff 0%, #fefdf8 5%, #fef9e7 15%, #fcf3cf 35%, #f9e79f 60%, #f7dc6f 100%);
+            color: #7d6608;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(255, 255, 224, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 248, 220, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(255, 250, 240, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 30px;
+            background: linear-gradient(135deg, rgba(241, 196, 15, 0.1) 0%, rgba(243, 156, 18, 0.1) 100%);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 40px rgba(214, 137, 16, 0.15);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(241, 196, 15, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,0 100,25 100,75 50,100 0,75 0,25" fill="none" stroke="%23f1c40f" stroke-width="0.3" opacity="0.1"/></svg>') repeat;
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: #d68910;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #7d6608;
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        section {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,0 100,25 100,75 50,100 0,75 0,25" fill="none" stroke="%23f4d03f" stroke-width="0.5" opacity="0.1"/></svg>') repeat;
+            pointer-events: none;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: #d68910;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .info-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: justify;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .video-section {
+            text-align: center;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            aspect-ratio: 16 / 9;
+        }
+
+        .video-container iframe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .price-text {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #a04000;
+            margin-top: 15px;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 450px;
+            background: linear-gradient(45deg, #f1c40f, #f39c12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            position: relative;
+        }
+
+        .video-placeholder::before {
+            content: '▶';
+            font-size: 4rem;
+            margin-right: 15px;
+        }
+
+        .contact-section {
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .contact-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .member-section {
+            text-align: center;
+            padding: 30px;
+            background: transparent;
+            box-shadow: none;
+            backdrop-filter: none;
+            border: none;
+        }
+
+        .member-section::before {
+            display: none;
+        }
+
+        .member-section h3 {
+            font-size: 1.8rem;
+            color: #d68910;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .member-section p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #7d6608;
+            margin-bottom: 25px;
+        }
+
+        .member-btn {
+            background: linear-gradient(45deg, #f1c40f, #f39c12);
+            color: white;
+            padding: 18px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .member-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+        }
+
+        .contact-right {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #a04000;
+            font-size: 1.1rem;
+        }
+
+        input, textarea {
+            padding: 15px;
+            border: 2px solid #f4d03f;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            font-family: inherit;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #d68910;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 15px rgba(214, 137, 16, 0.3);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #f1c40f, #f39c12);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+        }
+
+        .disclaimer-section {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .disclaimer-section h3 {
+            font-size: 1.5rem;
+            color: #d68910;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .disclaimer-section p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #7d6608;
+            text-align: justify;
+            margin: 0;
+        }
+
+        .floating-honeycomb {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            opacity: 0.4;
+            animation: float 8s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .floating-honeycomb::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,0 100,25 100,75 50,100 0,75 0,25" fill="%23f1c40f" opacity="0.7"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+
+        .floating-honeycomb::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,0 100,25 100,75 50,100 0,75 0,25" fill="none" stroke="%23f39c12" stroke-width="2"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+
+        .floating-bee {
+            position: fixed;
+            font-size: 2rem;
+            opacity: 0.6;
+            animation: beeFloat 10s ease-in-out infinite;
+            z-index: 1;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(5deg); }
+            50% { transform: translateY(-25px) rotate(0deg); }
+            75% { transform: translateY(-15px) rotate(-5deg); }
+        }
+
+        @keyframes beeFloat {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px) rotate(0deg); 
+                opacity: 0.6;
+            }
+            25% { 
+                transform: translateY(-20px) translateX(10px) rotate(10deg); 
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translateY(-30px) translateX(-5px) rotate(0deg); 
+                opacity: 1;
+            }
+            75% { 
+                transform: translateY(-15px) translateX(15px) rotate(-10deg); 
+                opacity: 0.7;
+            }
+        }
+
+        /* Left side honeycombs */
+        .honeycomb1 { top: 100px; left: 50px; animation-delay: 0s; width: 35px; height: 35px; }
+        .honeycomb2 { top: 200px; left: 40px; animation-delay: 2s; width: 25px; height: 25px; }
+        .honeycomb3 { top: 300px; left: 60px; animation-delay: 4s; width: 40px; height: 40px; }
+        .honeycomb4 { top: 400px; left: 35px; animation-delay: 1s; width: 30px; height: 30px; }
+        .honeycomb5 { top: 500px; left: 55px; animation-delay: 3s; width: 35px; height: 35px; }
+        .honeycomb6 { top: 600px; left: 45px; animation-delay: 5s; width: 25px; height: 25px; }
+        .honeycomb7 { top: 700px; left: 65px; animation-delay: 2.5s; width: 30px; height: 30px; }
+        .honeycomb8 { bottom: 100px; left: 50px; animation-delay: 1.5s; width: 35px; height: 35px; }
+
+        /* Right side honeycombs */
+        .honeycomb9 { top: 100px; right: 50px; animation-delay: 0.5s; width: 35px; height: 35px; }
+        .honeycomb10 { top: 200px; right: 40px; animation-delay: 2.5s; width: 25px; height: 25px; }
+        .honeycomb11 { top: 300px; right: 60px; animation-delay: 4.5s; width: 40px; height: 40px; }
+        .honeycomb12 { top: 400px; right: 35px; animation-delay: 1.5s; width: 30px; height: 30px; }
+        .honeycomb13 { top: 500px; right: 55px; animation-delay: 3.5s; width: 35px; height: 35px; }
+        .honeycomb14 { top: 600px; right: 45px; animation-delay: 5.5s; width: 25px; height: 25px; }
+        .honeycomb15 { top: 700px; right: 65px; animation-delay: 2s; width: 30px; height: 30px; }
+        .honeycomb16 { bottom: 100px; right: 50px; animation-delay: 1s; width: 35px; height: 35px; }
+
+        /* Left side bees */
+        .bee1 { top: 150px; left: 80px; animation-delay: 0s; font-size: 1.8rem; }
+        .bee2 { top: 350px; left: 70px; animation-delay: 3s; font-size: 2.2rem; }
+        .bee3 { top: 550px; left: 90px; animation-delay: 6s; font-size: 1.6rem; }
+        .bee4 { bottom: 150px; left: 75px; animation-delay: 2s; font-size: 2rem; }
+
+        /* Right side bees */
+        .bee5 { top: 250px; right: 80px; animation-delay: 1s; font-size: 1.9rem; }
+        .bee6 { top: 450px; right: 70px; animation-delay: 4s; font-size: 2.1rem; }
+        .bee7 { top: 650px; right: 85px; animation-delay: 7s; font-size: 1.7rem; }
+        .bee8 { bottom: 200px; right: 75px; animation-delay: 2.5s; font-size: 1.8rem; }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 30px 20px;
+                margin-bottom: 30px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+                line-height: 1.2;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+                line-height: 1.5;
+            }
+            
+            section {
+                padding: 25px 20px;
+                margin-bottom: 30px;
+                border-radius: 15px;
+            }
+            
+            .info-section p {
+                font-size: 1rem;
+                line-height: 1.6;
+                text-align: left;
+            }
+            
+                         .video-container {
+                 border-radius: 10px;
+                 aspect-ratio: 16 / 9;
+                 max-width: 100%;
+             }
+            
+            .member-section {
+                padding: 35px 20px;
+            }
+
+            .member-section h3 {
+                font-size: 1.5rem;
+            }
+
+            .member-section p {
+                font-size: 1rem;
+            }
+
+            .member-btn {
+                padding: 15px 25px;
+                font-size: 1.1rem;
+            }
+
+            .contact-form {
+                gap: 15px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            input, textarea {
+                padding: 12px;
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+            
+            .submit-btn {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+            
+                         /* Hide honeycombs and bees on mobile for better performance */
+             .floating-honeycomb,
+             .floating-bee {
+                 display: none;
+             }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 25px 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            section {
+                padding: 20px 15px;
+                margin-bottom: 25px;
+            }
+            
+            .info-section p {
+                font-size: 0.95rem;
+            }
+            
+            .video-container {
+                border-radius: 8px;
+                margin: 0 -5px;
+                width: calc(100% + 10px);
+            }
+            
+            .submit-btn {
+                width: 100%;
+                padding: 15px;
+            }
+        }
+
+        /* Landscape orientation adjustments */
+        @media (max-height: 500px) and (orientation: landscape) {
+            header {
+                padding: 20px 0;
+                margin-bottom: 20px;
+            }
+            
+            section {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐝 This isn't your average side hustle.</h1>
+            <p class="subtitle">Real talk. This is a side hustle with a conscience. It's affordable, global and rooted in wellness - with your power to create real, lasting income for you and your family.</p>
+        </header>
+
+        
+
+        <section class="video-section">
+            <h2>Featured Video</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/4MHU-h1nepc?si=jCeLcqlYyu7WowmV" title="YouTube video player" 
+                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <p class="price-text">All prices in USD</p>
+        </section>
+
+        <section class="contact-section">
+            <h2>Need more info?</h2>
+            <form class="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message 🐝</button>
+            </form>
+        </section>
+
+        <section class="member-section">
+            <div class="member-content">
+                <a href="https://www.livegoodtour.com/Itsmytime2025" class="member-btn">Secure Your Spot, Become a Member 🐝</a>
+            </div>
+        </section>
+
+        <section class="disclaimer-section">
+            <h3>Disclaimer</h3>
+            <p>The income examples on this website are for informational purposes only. Any potential earnings are based on personal effort, experience, and a variety of external factors. Results will vary, and there is no guarantee of success or income. Success in any business opportunity requires hard work, dedication, and the implementation of sound strategies. We do not guarantee specific results, and individual results may differ.</p>
+        </section>
+    </div>
+
+         <!-- Decorative honeycombs -->
+     <div class="floating-honeycomb honeycomb1"></div>
+     <div class="floating-honeycomb honeycomb2"></div>
+     <div class="floating-honeycomb honeycomb3"></div>
+     <div class="floating-honeycomb honeycomb4"></div>
+     <div class="floating-honeycomb honeycomb5"></div>
+     <div class="floating-honeycomb honeycomb6"></div>
+     <div class="floating-honeycomb honeycomb7"></div>
+     <div class="floating-honeycomb honeycomb8"></div>
+     <div class="floating-honeycomb honeycomb9"></div>
+     <div class="floating-honeycomb honeycomb10"></div>
+     <div class="floating-honeycomb honeycomb11"></div>
+     <div class="floating-honeycomb honeycomb12"></div>
+     <div class="floating-honeycomb honeycomb13"></div>
+     <div class="floating-honeycomb honeycomb14"></div>
+     <div class="floating-honeycomb honeycomb15"></div>
+     <div class="floating-honeycomb honeycomb16"></div>
+
+     <!-- Animated bee emojis -->
+     <div class="floating-bee bee1">🐝</div>
+     <div class="floating-bee bee2">🐝</div>
+     <div class="floating-bee bee3">🐝</div>
+     <div class="floating-bee bee4">🐝</div>
+     <div class="floating-bee bee5">🐝</div>
+     <div class="floating-bee bee6">🐝</div>
+     <div class="floating-bee bee7">🐝</div>
+     <div class="floating-bee bee8">🐝</div>
+
+     <!-- EmailJS Scripts -->
+     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+     <script>
+         // Initialize EmailJS with your User ID
+         emailjs.init("yHb3fMSq8QCmTbSNj");
+         
+         // Handle form submission
+         document.querySelector('.contact-form').addEventListener('submit', function(e) {
+             e.preventDefault();
+             
+             // Show loading state
+             const submitBtn = this.querySelector('.submit-btn');
+             const originalText = submitBtn.textContent;
+             submitBtn.textContent = 'Sending... 🐝';
+             submitBtn.disabled = true;
+             
+             // Send email using EmailJS
+             emailjs.sendForm('service_7q05b99', 'template_8r6usio', this)
+                 .then(function() {
+                     // Success
+                     alert('Message sent successfully! 🐝');
+                     document.querySelector('.contact-form').reset();
+                 }, function(error) {
+                     // Error
+                     alert('Failed to send message. Please try again.');
+                     console.error('EmailJS Error:', error);
+                 })
+                 .finally(function() {
+                     // Reset button
+                     submitBtn.textContent = originalText;
+                     submitBtn.disabled = false;
+                 });
+         });
+     </script>
+</body>
+</html>
